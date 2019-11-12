@@ -11,7 +11,7 @@ in accordance with the terms of the contract agreement
 you entered into with IBOXCHAIN inc.
 
 */
-package com.bigguy.spider.spider;
+package com.bigguy.spider.spider.xici;
 
 import com.bigguy.spider.entity.ProxyEntity;
 import us.codecraft.webmagic.Page;
@@ -69,8 +69,8 @@ public class XiCiSpider implements PageProcessor {
 
         // 继续爬取下一页
 
-        String nextUrl = html.css("").get();
-        page.addTargetRequest(nextUrl);
+//        String nextUrl = html.css("").get();
+//        page.addTargetRequest(nextUrl);
 
     }
 
@@ -82,6 +82,7 @@ public class XiCiSpider implements PageProcessor {
     public static void main(String[] args) {
         Spider.create(new XiCiSpider())
                 .addUrl(URL)
+                .addPipeline(new XiciPipeline())
                 .thread(5)
                 .run();
     }

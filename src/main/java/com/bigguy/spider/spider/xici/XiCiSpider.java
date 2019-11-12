@@ -65,7 +65,7 @@ public class XiCiSpider implements PageProcessor {
 
         }
 
-        page.putField("proxyList", proxyEntityList );
+        page.putField("proxyList", proxyEntityList);
 
         // 继续爬取下一页
 

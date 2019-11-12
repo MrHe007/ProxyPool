@@ -13,10 +13,27 @@ you entered into with IBOXCHAIN inc.
 */
 package com.bigguy.spider.controller;
 
+import com.bigguy.spider.service.RedisService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * @author ：hechen
  * @data ：2019/9/27
- * @description ：
+ * @description ：健康检查
  */
+@RestController
 public class CommonController {
+
+    @Autowired
+    RedisService redisService;
+
+    @GetMapping("/healthCheck")
+    public Object healthCheck(){
+        redisService.set("name","hechen");
+
+        return "ok";
+    }
+
 }

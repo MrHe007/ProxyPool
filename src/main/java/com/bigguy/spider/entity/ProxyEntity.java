@@ -52,6 +52,11 @@ public class ProxyEntity {
      */
     private Long exipreTime;
 
+    /**
+     * 代理分数：100,
+     */
+    private Integer score;
+
     public ProxyEntity(String ip, Integer port, String serverAddr, boolean isAnno, String proxyType, String webExipreTime) {
         this.ip = ip;
         this.port = port;

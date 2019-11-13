@@ -26,7 +26,7 @@ public interface ParamCst {
         /**
          * 缓存代理列表的根目录
          */
-        String ROOT_PATH = "proxy:pool:list";
+        String ROOT_PATH = "proxy:pool:list:";
 
     }
 

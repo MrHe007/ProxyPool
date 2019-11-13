@@ -14,6 +14,7 @@ you entered into with IBOXCHAIN inc.
 package com.bigguy.spider.spider.xici;
 
 import com.bigguy.spider.entity.ProxyEntity;
+import lombok.extern.slf4j.Slf4j;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -29,11 +30,13 @@ import java.util.List;
  * @data ：2019/11/11
  * @description ：
  */
+@Slf4j
 public class XiCiSpider implements PageProcessor {
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(100);
 
     private final static String URL = "https://www.xicidaili.com/nn/";
+    private final static String ROOT_URL = "https://www.xicidaili.com";
 
     @Override
     public void process(Page page) {
@@ -68,15 +71,25 @@ public class XiCiSpider implements PageProcessor {
         page.putField("proxyList", proxyEntityList);
 
         // 继续爬取下一页
+        String nextUrl = html.xpath("a[@class='next_page']/@href").get();
 
-//        String nextUrl = html.css("").get();
-//        page.addTargetRequest(nextUrl);
+        // 手动模拟爬虫停止
+        if(!nextUrl.contains("4")){
+            nextUrl = ROOT_URL + nextUrl;
+            log.info("nextUrl = {}", nextUrl);
+            page.addTargetRequest(nextUrl);
+
+        }
+
 
     }
 
     @Override
     public Site getSite() {
-        return this.site;
+        Site site = this.site;
+        site.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36");
+        site.addHeader("Host", "www.xicidaili.com");
+        return site;
     }
 
     public static void main(String[] args) {
